@@ -1,0 +1,96 @@
+html {
+  font-size: 24px;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+}
+
+button {
+  border: none;
+  color: #ffffff;
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn-create {
+  background-color: #8bc34a;
+
+  &:hover {
+    background-color: #558b2f;
+  }
+
+  &:active {
+    background-color: #33691e;
+  }
+}
+
+.btn-delete {
+  background-color: #e53935;
+
+  &:hover {
+    background-color: #c62828;
+  }
+
+  &:active {
+    background-color: #b71c1c;
+  }
+}
+
+.btn-cancel {
+  background-color: #ff9800;
+
+  &:hover {
+    background-color: #ef6c00;
+  }
+
+  &:active {
+    background-color: #e65100;
+  }
+}
+
+.btn-edit {
+  background-color: #00acc1;
+
+  &:hover {
+    background-color: #00838f;
+  }
+
+  &:active {
+    background-color: #006064;
+  }
+}
+
+.btn-text-action {
+  height: 1.5rem;
+  width: 5rem;
+  border-radius: 10px;
+}
+
+.btn-symbol-action {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+}
+
