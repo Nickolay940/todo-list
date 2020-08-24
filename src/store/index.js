@@ -12,12 +12,12 @@ export default new Vuex.Store({
       state.notes.push(note);
       localStorage.setItem('notes', JSON.stringify(state.notes))
     },
-    updateToDo(state, {id, body}) {
+    updateToDo(state, {id, body, disabled}) {
       const notes = state.notes.concat();
       const index = notes.findIndex(note => note.id === id);
       const note = notes[index]
 
-      notes[index] = { ...note, body}
+      notes[index] = { ...note, body, disabled}
       state.notes = notes
       localStorage.setItem('notes', JSON.stringify(state.notes))
     },

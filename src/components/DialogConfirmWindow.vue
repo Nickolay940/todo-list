@@ -52,4 +52,15 @@ export default {
   justify-content: space-between;
   padding: 30px 0;
 }
+
+@media screen and (max-width: 468px) {
+  .card {
+    width: 90%;
+    text-align: center;
+  }
+
+  .button-container {
+    width: 90%
+  }
+}
 </style>

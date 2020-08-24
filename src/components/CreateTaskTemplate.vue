@@ -6,7 +6,7 @@
         <input type="text" placeholder="Title" v-model="title" />
         <div v-if="body.length !== 0" class="todo-body">
           <div v-for="todo of body" :key="todo.taskId" class="todo-body-container">
-            <div>{{todo.taskBody}}</div>
+            <div class="todo-body-wrap">{{todo.taskBody}}</div>
             <button
               type="button"
               :id="todo.taskId"
@@ -16,11 +16,12 @@
           </div>
         </div>
         <div class="input-filed">
-          <input type="text" placeholder="Task" v-model="taskBody" @blur="addToDo"/>
+          <input type="text" placeholder="Task" v-model="taskBody" maxlength="50"/>
+          <button type="button" class="btn-create btn-symbol-action save-changes-button" @click="addToDo">&plus;</button>
         </div>
       </div>
       <div class="form-action">
-        <button type="submit" class="btn-create btn-text-action save-changes-button">Save note</button>
+        <button type="submit" class="btn-create btn-text-action">Save note</button>
       </div>
     </form>
   </div>
@@ -43,6 +44,7 @@ export default {
         id: +Date.now(),
         title: this.title,
         body: this.body,
+        disabled: false,
       };
       this.$store.dispatch("createNote", note);
       this.$router.push("/");
@@ -86,6 +88,7 @@ h1 {
 .input-filed {
   margin: 0 auto;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 30px 0;
 }
@@ -98,20 +101,36 @@ h1 {
 .todo-body-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-top: 30px;
 }
 
-input {
-  width: 40%;
-}
-
-.input-filed input {
-  width: 50%;
+.todo-body-wrap {
+  max-width: 300px;
+  height: 100%;
+  word-break: break-all;
 }
 
 .form-action {
   display: flex;
   padding: 20px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .input-filed {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .input-filed .btn-create {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .card {
+    width: 90%
+  }
 }
 
 </style>

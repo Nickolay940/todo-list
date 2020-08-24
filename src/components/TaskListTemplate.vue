@@ -15,21 +15,21 @@
         </thead>
         <tbody>
           <tr v-for="(note, index) of notes" :key="note.index">
-            <td>{{index + 1}}</td>
-            <td>{{note.title}}</td>
-            <td>
+            <td data-label="index">{{index + 1}}</td>
+            <td data-label="title">{{note.title}}</td>
+            <td data-label="Tasks">
               <ul v-for="todo of note.body.slice(0, 3)" :key="todo.taskId">
-                <li>{{todo.taskBody}}</li>
+                <li class="todo-body">{{todo.taskBody}}</li>
               </ul>
             </td>
-            <td>
+            <td data-label="edit">
               <router-link
                 tag="button"
                 :to="'/task/' + note.id"
                 class="btn-edit btn-text-action btn change-task-button"
               >Edit</router-link>
             </td>
-            <td>
+            <td data-label="remove">
               <button
                 :id="note.id"
                 class="btn-delete btn-text-action btn remove-task-button"
@@ -100,11 +100,14 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.notes-container {
+.container {
   position: relative;
+}
+
+.notes-container {
   width: 70%;
   margin: 0 auto;
-  padding-top: 30px;
+  padding: 50px 0;
 }
 
 table {
@@ -119,5 +122,52 @@ th {
 
 td {
   padding: 10px 0;
+}
+
+.todo-body {
+  width: 150px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1024px) {
+  table {
+    border: 0;
+    padding-bottom: 0;
+  }
+  table thead {
+    display: none;
+  }
+  table tr {
+    margin-bottom: 10px;
+    display: block;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 50px;
+  }
+  .todo-body {
+    width: auto;
+  }
+  table td {
+    display: block;
+    text-align: right;
+    border-bottom: 1px dotted #ccc;
+    border-right: 1px solid transparent;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+  table td:before {
+    content: attr(data-label);
+    padding-right: 50px;
+    float: left;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .notes-container {
+    width: 90%;
+  }
 }
 </style>

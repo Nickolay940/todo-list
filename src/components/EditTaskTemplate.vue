@@ -3,7 +3,7 @@
     <div class="card" @change="changeStatePoint = !changeStatePoint">
       <h1>{{note.title}}</h1>
       <form @submit.prevent="saveChanges">
-        <div class="form-content">
+        <div class="form-content" :class="{'disabled': disable}">
           <div class="input-filed" v-for="todo of note.body" :key="todo.taskId">
             <input type="text" v-model="todo.taskBody" />
             <div class="input-actions">
@@ -28,7 +28,7 @@
         >&plus;</button>
         <hr />
         <div class="form-action">
-          <button type="submit" class="btn-create btn-text-action" @click="saveChanges">Save Changes</button>
+          <button type="submit" class="btn-create btn-text-action">Save Changes</button>
           <button
             type="button"
             class="btn-cancel btn-text-action"
@@ -39,9 +39,10 @@
             :id="note.id"
             class="btn-delete btn-text-action"
             @click="showWindow"
-          >Remove Note</button>
+          >Delete Note</button>
         </div>
       </form>
+      <button type="button" class="btn-edit btn-text-action" @click="disableEditing">Disable editing</button>
     </div>
     <DialogConfirmWindow
       v-if="showConfirmWindow"
@@ -66,6 +67,7 @@ export default {
     basicNote: null,
     stateArr: [],
     changeStatePoint: false,
+    disable: '',
   }),
 
   components: {
@@ -81,6 +83,7 @@ export default {
   created: function () {
     this.basicNote = JSON.parse(JSON.stringify(this.getNote));
     this.note = JSON.parse(JSON.stringify(this.getNote));
+    this.disable = this.note.disabled;
   },
 
   methods: {
@@ -99,7 +102,6 @@ export default {
       if (this.stateArr.length > 1) {
         this.stateArr.splice(-1, 1);
         let obj = this.stateArr[this.stateArr.length - 1];
-        console.log(obj, this.stateArr)
         this.note = JSON.parse(JSON.stringify(obj));
       } else {
         this.note = JSON.parse(JSON.stringify(this.basicNote));
@@ -150,6 +152,10 @@ export default {
         this.stateArr.push(JSON.parse(JSON.stringify(this.note)));
       }, 0)
     },
+    disableEditing() {
+      this.note.disabled = !this.note.disabled
+      this.disable = this.note.disabled
+    }
   },
 
   watch: {
@@ -164,7 +170,7 @@ export default {
   position: relative;
   width: 50%;
   margin: 0 auto;
-  padding-top: 20px;
+  padding: 20px 0;
 }
 
 h1 {
@@ -185,6 +191,7 @@ hr {
 .form-action {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 30px;
 }
 
 .creation-input-field {
@@ -193,7 +200,7 @@ hr {
 }
 
 .input-actions {
-  width: 12%;
+  width: 20%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -201,5 +208,22 @@ hr {
 
 .creation-input-field {
   padding-bottom: 20px;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@media all and (max-width: 1024px) {
+  .card {
+    width: 80%;
+  }
+}
+
+@media all and (max-width: 468px) {
+  .card {
+    width: 95%;
+  }
 }
 </style>
