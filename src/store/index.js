@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    notes: JSON.parse(localStorage.getItem('notes') || '[]')
+    notes: JSON.parse(localStorage.getItem('notes')) || [{id: Date.now(), title: 'ToDo list', body: [{taskId: 1, taskBody: 'Learn JS', completed: false}, {taskId: 2, taskBody: 'Learn TS', completed: false}, {taskId: 3, taskBody: 'Learn JSX', completed: false}], disabled: false}]
   },
   mutations: {
     createNote(state, note) {
